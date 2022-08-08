@@ -1,0 +1,38 @@
+# Para instalar pip con YUM primero se instala el repo
+# epel-release
+# 
+# Hasta este punto aws_remote_host debera tener
+# CLI aws, cliente mysql
+
+version: '3'
+services:
+  aws_jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+    networks:
+      - net
+  aws_remote_host:
+    container_name: remote-host
+    image: aws-remote-host
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./tmp:/tmp
+    networks:
+      - net
+  aws_db_host:
+    container_name: db
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - net
+networks:
+  net:
