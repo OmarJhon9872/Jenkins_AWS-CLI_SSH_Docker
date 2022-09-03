@@ -1,6 +1,26 @@
+#Lo que hara este docker compose es que a partir de 
+#la creacion de nuestro DockerFile con el comando:
+# docker-compose build, se crea la imagen remote_host
+# definida en el servicio remote_host_ssh,
+# luego de levantar los servicios con 
+# docker-compose up -d se cargara la imagen creada y 
+# los servicios para ejecutar el servidor ssh,
+# en caso de fallar al conectar con el cliente: jenkins, 
+# ejecutar en el servidor:
+
+# ls -l /run/nologin
+# rm /run/nologin
+
+#Para generar una key compatible ejecutar y verificar
+# los permisos de los directorios del servidor: 
+# ssh-keygen -t rsa -m PEM -f remote-key 
+# .ssh permisos 700
+# remote-key permisos 400
+# authorized_keys permisos 600 
+
 # Para instalar pip con YUM primero se instala el repo
 # epel-release
-# 
+
 # Hasta este punto aws_remote_host debera tener
 # CLI aws, cliente mysql
 
